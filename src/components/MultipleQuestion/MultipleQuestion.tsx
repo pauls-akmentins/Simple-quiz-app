@@ -22,7 +22,7 @@ export const MultipleQuestion = ({ question }: Props) => {
     if (numQuestionId) {
       navigate(`/quiz/${numQuestionId + 1}`);
     }
-    setAnswer({ question: question?.label, answer: selectedAnswers });
+    setAnswer({ question: question.label, answer: selectedAnswers });
   };
 
   return (
@@ -34,12 +34,12 @@ export const MultipleQuestion = ({ question }: Props) => {
         flexDirection: 'column',
         gap: '12px'
       }}>
-      {question?.options?.map(({ label, custom }, index) => (
+      {question.options?.map(({ label, custom }, index) => (
         <MultipleQuestionOption
           key={index}
           label={label}
           deselectAll={Boolean(custom)}
-          questionKey={question?.key}
+          questionKey={question.key}
           selectedAnswers={selectedAnswers}
           options={question.options}
           setSelectedAnswers={(answers) => setSelectedAnswers(answers)}

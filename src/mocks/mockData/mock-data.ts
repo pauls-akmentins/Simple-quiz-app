@@ -42,7 +42,7 @@ export const MOCK_DATA: MockData = {
           { label: 'Olympics', value: 'olympics' },
           { label: 'World Championships', value: 'world_championships' },
           { label: 'Youth Leagues', value: 'youth_leagues' },
-          { label: 'No on the above', value: 'none', custom: { deselectAll: true } }
+          { label: 'No of the above', value: 'none', custom: { deselectAll: true } }
         ],
         label: 'Which ice hockey events have you watched or followed?',
         description: 'Select all that apply.',

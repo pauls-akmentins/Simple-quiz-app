@@ -18,8 +18,8 @@ export const SingleQuestion = ({ question }: Props) => {
         flexDirection: 'column',
         gap: '12px'
       }}>
-      {question?.options?.map(({ label }, index) => (
-        <SingleQuestionOption key={index} label={label} questionLabel={question?.label} />
+      {question.options?.map(({ label }, index) => (
+        <SingleQuestionOption key={index} label={label} questionLabel={question.label} />
       ))}
     </Box>
   );

@@ -24,10 +24,10 @@ export const Question = () => {
         gap: '20px'
       }}>
       <Typography fontSize="2rem" sx={{ maxWidth: '600px', textAlign: 'center' }}>
-        {question?.label}
+        {question.label}
       </Typography>
       {(() => {
-        switch (question?.type) {
+        switch (question.type) {
           case QuestionType.SINGLE:
             return <SingleQuestion question={question} />;
           case QuestionType.MULTIPLE:
