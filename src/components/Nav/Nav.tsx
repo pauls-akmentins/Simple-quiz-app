@@ -13,11 +13,16 @@ export const Nav = () => {
   const numQuestionId = Number(questionId || 0);
   const { questions } = useQuestionsStore();
   const { answers, setAnswers } = useAnswersStore();
+  const progress = ((numQuestionId - 1) / (questions.length - 1)) * 100;
 
   const handleBack = () => {
     const newAnswers = answers.length > 0 ? answers.slice(0, -1) : [];
     setAnswers(newAnswers);
-    navigate(numQuestionId - 1 < 1 ? '/' : `/quiz/${numQuestionId - 1}`);
+    if (numQuestionId - 1 < 1) {
+      navigate('/');
+    } else {
+      navigate(-1);
+    }
   };
 
   return (
@@ -50,11 +55,7 @@ export const Nav = () => {
         </CommonButton>
         <Typography>{`${Number(questionId)} of ${questions.length}`}</Typography>
       </Box>
-      <LinearProgress
-        variant="determinate"
-        color="primary"
-        value={(numQuestionId - 1) * questions?.length}
-      />
+      <LinearProgress variant="determinate" color="primary" value={progress} />
     </Box>
   );
 };

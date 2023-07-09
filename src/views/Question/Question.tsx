@@ -1,11 +1,9 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
-import { InfoQuestion } from '../../components/InfoQuestion';
+import { useParams } from 'react-router-dom';
 
 import { QuestionType } from '../../interfaces';
-import { SingleQuestion } from '../../components';
-import { MultipleQuestion } from '../../components/MultipleQuestion';
-import { useParams } from 'react-router-dom';
+import { SingleQuestion, InputQuestion, InfoQuestion, MultipleQuestion } from '../../components';
 import { useQuestionsStore } from '../../store';
 
 export const Question = () => {
@@ -36,6 +34,8 @@ export const Question = () => {
             return <MultipleQuestion question={question} />;
           case QuestionType.INFO:
             return <InfoQuestion question={question} />;
+          case QuestionType.INPUT:
+            return <InputQuestion question={question} />;
         }
       })()}
     </Box>

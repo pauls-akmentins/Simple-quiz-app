@@ -41,7 +41,8 @@ export const MOCK_DATA: MockData = {
           { label: 'NHL', value: 'nhl' },
           { label: 'Olympics', value: 'olympics' },
           { label: 'World Championships', value: 'world_championships' },
-          { label: 'Youth Leagues', value: 'youth_leagues' }
+          { label: 'Youth Leagues', value: 'youth_leagues' },
+          { label: 'No on the above', value: 'none', custom: { deselectAll: true } }
         ],
         label: 'Which ice hockey events have you watched or followed?',
         description: 'Select all that apply.',
@@ -85,6 +86,12 @@ export const MOCK_DATA: MockData = {
         label: 'Did you know?',
         description: 'Ice hockey is one of the fastest team sports played on a slippery surface.',
         key: 'info_block'
+      },
+      {
+        type: 'input',
+        label: 'What is your name?',
+        inputLabel: 'Name',
+        key: 'name_input'
       }
     ]
   }

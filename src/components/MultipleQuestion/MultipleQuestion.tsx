@@ -19,7 +19,9 @@ export const MultipleQuestion = ({ question }: Props) => {
   const [selectedAnswers, setSelectedAnswers] = useState<string[] | null>(null);
 
   const handleAnswer = () => {
-    navigate(`/quiz/${numQuestionId + 1}`);
+    if (numQuestionId) {
+      navigate(`/quiz/${numQuestionId + 1}`);
+    }
     setAnswer({ question: question?.label, answer: selectedAnswers });
   };
 

@@ -19,7 +19,9 @@ export const SingleQuestionOption = ({ label, questionLabel }: Props) => {
   const theme = useTheme();
 
   const handleAnswer = () => {
-    navigate(`/quiz/${numQuestionId + 1}`);
+    if (numQuestionId) {
+      navigate(`/quiz/${numQuestionId + 1}`);
+    }
     setAnswer({ question: questionLabel, answer: [label] });
   };
 
