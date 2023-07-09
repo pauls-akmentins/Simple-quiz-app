@@ -16,7 +16,7 @@ export const MultipleQuestion = ({ question }: Props) => {
   const { questionId } = useParams();
   const numQuestionId = Number(questionId || 0);
   const { setAnswer } = useAnswersStore();
-  const [selectedAnswers, setSelectedAnswers] = useState<string[] | null>(null);
+  const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
 
   const handleAnswer = () => {
     if (numQuestionId) {
@@ -41,7 +41,7 @@ export const MultipleQuestion = ({ question }: Props) => {
           deselectAll={Boolean(custom)}
           questionKey={question?.key}
           selectedAnswers={selectedAnswers}
-          options={question?.options}
+          options={question.options}
           setSelectedAnswers={(answers) => setSelectedAnswers(answers)}
         />
       ))}

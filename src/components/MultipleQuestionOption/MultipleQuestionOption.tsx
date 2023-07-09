@@ -10,7 +10,7 @@ interface Props {
   label: string;
   questionKey: string;
   deselectAll?: boolean;
-  selectedAnswers: string[] | null;
+  selectedAnswers: string[];
   options?: QuestionOption[];
   setSelectedAnswers: (answers: string[]) => void;
 }
@@ -19,29 +19,28 @@ export const MultipleQuestionOption = ({
   label,
   deselectAll,
   selectedAnswers,
-  setSelectedAnswers,
-  options
+  options,
+  setSelectedAnswers
 }: Props) => {
   const theme = useTheme();
 
   const handleSelection = () => {
-    const isSelected = selectedAnswers?.includes(label);
+    const isSelected = selectedAnswers.includes(label);
 
-    if (deselectAll) {
-      if (isSelected) {
-        setSelectedAnswers([]);
-      } else {
-        setSelectedAnswers([label]);
-      }
+    if (isSelected) {
+      setSelectedAnswers(selectedAnswers.filter((answer) => answer !== label));
     } else {
-      if (isSelected) {
-        setSelectedAnswers(selectedAnswers?.filter((answer) => answer !== label) || []);
+      if (deselectAll) {
+        setSelectedAnswers([label]);
       } else {
-        const updatedAnswers = selectedAnswers?.filter((answer) => {
-          const answerData = options?.find((option) => option.value === answer);
-          return !(answerData && answerData.custom && answerData.custom.deselectAll);
-        });
-        setSelectedAnswers([...(updatedAnswers || []), label]);
+        const isDeselectSelected = options?.find(
+          ({ label, custom }) => custom && selectedAnswers.includes(label)
+        );
+        if (isDeselectSelected) {
+          setSelectedAnswers([label]);
+        } else {
+          setSelectedAnswers([...selectedAnswers, label]);
+        }
       }
     }
   };
