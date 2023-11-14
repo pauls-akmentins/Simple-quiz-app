@@ -4,8 +4,9 @@ import { Box } from '@mui/material';
 import { Question } from '../../interfaces';
 import { MultipleQuestionOption } from '../MultipleQuestionOption';
 import { CommonButton } from '../CommonButton';
-import { useAnswersStore } from '../../store';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setSingleAnswer } from '../../store/answers/answersSlice';
 
 interface Props {
   question: Question;
@@ -13,16 +14,16 @@ interface Props {
 
 export const MultipleQuestion = ({ question }: Props) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { questionId } = useParams();
   const numQuestionId = Number(questionId || 0);
-  const { setAnswer } = useAnswersStore();
   const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
 
   const handleAnswer = () => {
     if (numQuestionId) {
       navigate(`/quiz/${numQuestionId + 1}`);
     }
-    setAnswer({ question: question.label, answer: selectedAnswers });
+    dispatch(setSingleAnswer({ question: question.label, answer: selectedAnswers }));
   };
 
   return (

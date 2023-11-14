@@ -4,7 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { Question } from '../../interfaces';
 import { CommonButton } from '../CommonButton';
-import { useAnswersStore } from '../../store';
+import { useDispatch } from 'react-redux';
+import { setSingleAnswer } from '../../store/answers/answersSlice';
 
 interface Props {
   question: Question;
@@ -14,7 +15,7 @@ export const InputQuestion = ({ question }: Props) => {
   const { questionId } = useParams();
   const numQuestionId = Number(questionId || 0);
   const navigate = useNavigate();
-  const { setAnswer } = useAnswersStore();
+  const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
 
@@ -24,7 +25,7 @@ export const InputQuestion = ({ question }: Props) => {
       return;
     }
     navigate(`/quiz/${numQuestionId + 1}`);
-    setAnswer({ question: question.label, answer: [value] });
+    dispatch(setSingleAnswer({ question: question.label, answer: [value] }));
   };
 
   return (

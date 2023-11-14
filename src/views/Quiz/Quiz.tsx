@@ -2,17 +2,19 @@ import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import { Navigate, useParams } from 'react-router-dom';
 
-import { useQuestionsStore } from '../../store';
 import { Question } from '../Question';
 import { Nav } from '../../components';
 import { MockApi } from '../../apis';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { useDispatch } from 'react-redux';
+import { setQuestions } from '../../store/questions/questionsSlice';
 
 export const Quiz = () => {
-  const { questions } = useQuestionsStore();
+  const dispatch = useDispatch();
+  const { questions } = useSelector((state: RootState) => state.questions);
   const { questionId } = useParams();
   const numQuestionId = Number(questionId || 0);
-
-  const { setQuestions } = useQuestionsStore();
 
   useEffect(() => {
     const fetchMockData = async () => {
@@ -20,11 +22,13 @@ export const Quiz = () => {
         data: { questions }
       } = await MockApi();
 
-      setQuestions(questions);
+      dispatch(setQuestions(questions));
     };
 
     fetchMockData();
   }, []);
+
+  if (questions.length === 0) return <></>;
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'space-between' }}>

@@ -2,23 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { Typography, Box, LinearProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CommonButton } from '../../components';
-
-import { useAnswersStore } from '../../store';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 export const Answers = () => {
-  const { answers } = useAnswersStore();
+  const { answers } = useSelector((state: RootState) => state.answers);
   const [isLoading, setIsLoading] = useState(true);
   const nameValue = answers.find((answer) => answer.question === 'What is your name?');
   const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const timeoutValue = 3000;
+    const intervalTimeoutValue = 3000;
+    const timeoutValue = intervalTimeoutValue + 800;
     const interval = 100;
 
     const timer = setInterval(() => {
       setProgress((prevProgress) => {
-        const newProgress = prevProgress + (interval / timeoutValue) * 100;
+        const newProgress = prevProgress + (interval / intervalTimeoutValue) * 100;
         return newProgress >= 100 ? 100 : newProgress;
       });
     }, interval);

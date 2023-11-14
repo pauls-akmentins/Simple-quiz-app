@@ -3,21 +3,26 @@ import { Box, useTheme, Typography, LinearProgress } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useAnswersStore, useQuestionsStore } from '../../store';
 import { CommonButton } from '../CommonButton';
+import { useDispatch } from 'react-redux';
+import { setMultipleAnswers } from '../../store/answers/answersSlice';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 export const Nav = () => {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { answers } = useSelector((state: RootState) => state.answers);
+  const { questions } = useSelector((state: RootState) => state.questions);
   const { questionId } = useParams();
   const numQuestionId = Number(questionId || 0);
-  const { questions } = useQuestionsStore();
-  const { answers, setAnswers } = useAnswersStore();
+
   const progress = ((numQuestionId - 1) / (questions.length - 1)) * 100;
 
   const handleBack = () => {
     const newAnswers = answers.length > 0 ? answers.slice(0, -1) : [];
-    setAnswers(newAnswers);
+    dispatch(setMultipleAnswers(newAnswers));
     if (numQuestionId - 1 < 1) {
       navigate('/');
     } else {

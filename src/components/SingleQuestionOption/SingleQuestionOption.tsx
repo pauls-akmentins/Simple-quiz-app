@@ -4,7 +4,8 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { CommonButton } from '../CommonButton';
-import { useAnswersStore } from '../../store';
+import { useDispatch } from 'react-redux';
+import { setSingleAnswer } from '../../store/answers/answersSlice';
 
 interface Props {
   label: string;
@@ -12,8 +13,8 @@ interface Props {
 }
 
 export const SingleQuestionOption = ({ label, questionLabel }: Props) => {
-  const { setAnswer } = useAnswersStore();
   const { questionId } = useParams();
+  const dispatch = useDispatch();
   const numQuestionId = Number(questionId || 0);
   const navigate = useNavigate();
   const theme = useTheme();
@@ -22,7 +23,7 @@ export const SingleQuestionOption = ({ label, questionLabel }: Props) => {
     if (numQuestionId) {
       navigate(`/quiz/${numQuestionId + 1}`);
     }
-    setAnswer({ question: questionLabel, answer: [label] });
+    dispatch(setSingleAnswer({ question: questionLabel, answer: [label] }));
   };
 
   return (

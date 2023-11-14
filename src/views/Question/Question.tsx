@@ -4,11 +4,12 @@ import { useParams } from 'react-router-dom';
 
 import { QuestionType } from '../../interfaces';
 import { SingleQuestion, InputQuestion, InfoQuestion, MultipleQuestion } from '../../components';
-import { useQuestionsStore } from '../../store';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 export const Question = () => {
   const { questionId } = useParams();
-  const { questions } = useQuestionsStore();
+  const { questions } = useSelector((state: RootState) => state.questions);
   const question = questions[Number(questionId || 0) - 1];
 
   return (

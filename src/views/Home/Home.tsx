@@ -4,14 +4,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { CommonButton } from '../../components';
 import iceHockeyImg from '../../assets/images/ice-hockey.png';
-import { useAnswersStore } from '../../store';
+import { useDispatch } from 'react-redux';
+import { setInitialAnswers } from '../../store/answers/answersSlice';
 
 export const Home = () => {
   const navigate = useNavigate();
-  const { setInitialAnswer } = useAnswersStore();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setInitialAnswer();
+    dispatch(setInitialAnswers());
   }, []);
 
   return (
